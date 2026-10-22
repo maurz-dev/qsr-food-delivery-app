@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ADDONS_LIST } from '../data/menuData';
 import SauceSelector from './SauceSelector';
-import { X, Plus, Minus, Flame, Clock, Star, ShoppingBag } from 'lucide-react';
+import { X, Plus, Minus, Flame, Clock, Star, ShoppingBag, Sparkles } from 'lucide-react';
 
 export default function ProductModal({ product, onClose, onAddToCart }) {
   if (!product) return null;
@@ -39,67 +39,84 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   };
 
   return (
-    <div className="absolute inset-0 bg-black/80 backdrop-blur-md z-50 flex flex-col justify-end">
-      {/* Backdrop click */}
+    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex flex-col justify-end max-w-[500px] mx-auto">
+      {/* Backdrop */}
       <div className="flex-1" onClick={onClose}></div>
 
       {/* Sheet Container */}
-      <div className="bg-[#171922] border-t border-slate-700/60 rounded-t-[32px] max-h-[85vh] flex flex-col modal-animate-up shadow-2xl overflow-hidden">
+      <div className="bg-[#131620] border-t border-white/10 rounded-t-[36px] max-h-[88vh] flex flex-col modal-animate-up shadow-2xl overflow-hidden">
         {/* Header Drag Handle */}
         <div className="pt-3 pb-1 flex justify-center">
           <div className="w-12 h-1.5 rounded-full bg-slate-700"></div>
         </div>
 
         {/* Product Image Header with Close Button */}
-        <div className="relative h-44 w-full shrink-0 overflow-hidden">
+        <div className="relative h-48 w-full shrink-0 overflow-hidden">
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#171922] via-transparent to-black/40"></div>
-          
+          <div className="absolute inset-0 bg-gradient-to-t from-[#131620] via-black/30 to-black/40"></div>
+
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-white/20 active:scale-95 transition"
+            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center backdrop-blur-md border border-white/20 active:scale-95 transition"
           >
-            <X size={18} />
+            <X size={16} />
           </button>
 
           <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-            <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-orange-600/90 text-white shadow-md">
+            <span
+              className={`text-xs font-black px-3 py-1 rounded-full text-white shadow-lg ${product.badgeColor}`}
+            >
               {product.badge}
             </span>
-            <div className="flex items-center gap-1 bg-black/70 px-2 py-0.5 rounded-lg text-xs font-bold text-amber-400 border border-white/10">
+            <div className="flex items-center gap-1 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-xl text-xs font-black text-amber-400 border border-white/10">
               <Star size={12} fill="#f59e0b" />
               <span>{product.rating}</span>
+              <span className="text-white/60 font-normal">({product.reviewsCount})</span>
             </div>
           </div>
         </div>
 
         {/* Scrollable Content */}
         <div className="p-4 overflow-y-auto space-y-4 no-scrollbar">
-          {/* Title & Price */}
+          {/* Title, Calories & Price */}
           <div>
             <div className="flex justify-between items-start gap-2">
-              <h3 className="text-lg font-extrabold text-white leading-tight">
-                {product.name}
-              </h3>
+              <div>
+                <h3 className="text-lg font-black text-white leading-tight">
+                  {product.name}
+                </h3>
+                <p className="text-xs text-amber-400 font-bold mt-0.5">
+                  {product.subtitle}
+                </p>
+              </div>
               <span className="text-lg font-black text-amber-400 shrink-0">
                 S/ {product.price.toFixed(2)}
               </span>
             </div>
-            <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+
+            <p className="text-xs text-slate-300 mt-2 leading-relaxed">
               {product.description}
             </p>
-            <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-2">
-              <Clock size={12} className="text-orange-400" />
-              <span>Tiempo de cocción: {product.prepTime}</span>
+
+            <div className="flex items-center gap-3 text-xs text-slate-400 mt-2.5">
+              <span className="flex items-center gap-1 text-orange-400 font-bold">
+                <Flame size={13} />
+                {product.calories}
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <Clock size={13} />
+                {product.prepTime}
+              </span>
             </div>
           </div>
 
           {/* Selector de Cremas */}
-          <div className="bg-[#202430] p-3.5 rounded-2xl border border-slate-700/50">
+          <div className="bg-[#1a1e2c] p-4 rounded-3xl border border-white/10 shadow-md">
             <SauceSelector
               selectedSauces={selectedSauces}
               onChange={setSelectedSauces}
@@ -109,13 +126,13 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           </div>
 
           {/* Adicionales de Plancha */}
-          <div className="bg-[#202430] p-3.5 rounded-2xl border border-slate-700/50 space-y-2.5">
+          <div className="bg-[#1a1e2c] p-4 rounded-3xl border border-white/10 space-y-2.5 shadow-md">
             <div className="flex justify-between items-center">
-              <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
+              <h4 className="text-sm font-black text-white flex items-center gap-1.5">
                 <Flame size={15} className="text-orange-500" />
                 Adicionales a la Plancha
               </h4>
-              <span className="text-[11px] text-slate-400">Opcional</span>
+              <span className="text-[10px] text-slate-400 font-bold">Opcional</span>
             </div>
 
             <div className="space-y-1.5">
@@ -126,14 +143,17 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                     key={addon.id}
                     type="button"
                     onClick={() => toggleAddon(addon)}
-                    className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs border transition ${
+                    className={`w-full flex items-center justify-between p-2.5 rounded-2xl text-xs border transition ${
                       isSelected
-                        ? 'bg-amber-500/20 border-amber-500 text-white font-medium'
-                        : 'bg-slate-900/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                        ? 'bg-amber-500/20 border-amber-500 text-white font-bold'
+                        : 'bg-[#12141e] border-white/5 text-slate-300 hover:border-white/15'
                     }`}
                   >
-                    <span className="text-left">{addon.name}</span>
-                    <span className="font-bold text-amber-400 ml-2 shrink-0">
+                    <span className="flex items-center gap-2">
+                      <span>{addon.icon}</span>
+                      <span>{addon.name}</span>
+                    </span>
+                    <span className="font-black text-amber-400 ml-2 shrink-0">
                       + S/ {addon.price.toFixed(2)}
                     </span>
                   </button>
@@ -144,35 +164,35 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
           {/* Indicaciones especiales */}
           <div>
-            <label className="text-xs font-bold text-slate-300 block mb-1">
-              Indicaciones al Sanguchero:
+            <label className="text-xs font-black text-slate-300 block mb-1">
+              Indicaciones especiales al cocinero:
             </label>
             <input
               type="text"
-              placeholder="Ej: Papas bien doraditas, sin ensalada..."
+              placeholder="Ej: Papas bien doraditas, cremas bien frías..."
               value={specialInstructions}
               onChange={(e) => setSpecialInstructions(e.target.value)}
-              className="w-full bg-[#202430] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#1a1e2c] border border-white/10 rounded-2xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-orange-500 transition"
             />
           </div>
         </div>
 
         {/* Footer con Cantidad y Botón de Agregar */}
-        <div className="p-3.5 bg-[#12141c] border-t border-slate-800 flex items-center gap-3 shrink-0">
+        <div className="p-4 bg-[#0e1015] border-t border-white/10 flex items-center gap-3 shrink-0">
           {/* Contador de unidades */}
-          <div className="flex items-center bg-[#202430] rounded-xl border border-slate-700 p-1">
+          <div className="flex items-center bg-[#1a1e2c] rounded-2xl border border-white/10 p-1">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="w-7 h-7 flex items-center justify-center text-slate-300 active:scale-90"
+              className="w-8 h-8 flex items-center justify-center text-slate-300 active:scale-90 transition hover:text-white"
             >
               <Minus size={14} />
             </button>
-            <span className="w-7 text-center font-bold text-xs text-white">
+            <span className="w-8 text-center font-black text-xs text-white">
               {quantity}
             </span>
             <button
               onClick={() => setQuantity(quantity + 1)}
-              className="w-7 h-7 flex items-center justify-center text-slate-300 active:scale-90"
+              className="w-8 h-8 flex items-center justify-center text-slate-300 active:scale-90 transition hover:text-white"
             >
               <Plus size={14} />
             </button>
@@ -181,7 +201,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           {/* Botón CTA con precio total dinámico */}
           <button
             onClick={handleAdd}
-            className="flex-1 bg-gradient-to-r from-orange-600 to-amber-500 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-between shadow-lg shadow-orange-600/30 active:scale-[0.98] transition"
+            className="flex-1 bg-gradient-to-r from-orange-600 via-amber-500 to-orange-500 text-white font-black py-3 px-4 rounded-2xl flex items-center justify-between shadow-xl shadow-orange-600/30 active:scale-[0.98] transition"
           >
             <div className="flex items-center gap-1.5 text-xs">
               <ShoppingBag size={16} />
