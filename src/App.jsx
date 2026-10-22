@@ -76,7 +76,7 @@ export default function App() {
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="w-full min-h-screen max-w-[500px] mx-auto bg-[#0b0d12] text-white flex flex-col font-sans select-none relative shadow-2xl overflow-x-hidden">
+    <div className="w-full h-full max-w-[500px] mx-auto bg-[#0b0d12] text-white flex flex-col font-sans select-none relative shadow-2xl overflow-hidden">
       {/* Toast Flotante Superior */}
       {toastMessage && (
         <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 bg-[#1a1e2c]/95 border border-amber-500/40 text-amber-300 text-xs font-black px-4 py-2 rounded-2xl shadow-2xl backdrop-blur-xl flex items-center gap-2 animate-bounce">
@@ -85,8 +85,8 @@ export default function App() {
         </div>
       )}
 
-      {/* Contenido Principal según Pestaña Activa */}
-      <main className="flex-1 overflow-y-auto no-scrollbar pb-32">
+      {/* Contenido Principal con Scroll Fluido Garantizado */}
+      <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-36">
         {activeTab === 'menu' && (
           <div className="space-y-4">
             {/* Cabecera de la Marca y Ubicación */}

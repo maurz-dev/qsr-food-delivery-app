@@ -52,12 +52,12 @@ export default function CheckoutModal({
   };
 
   return (
-    <div className="absolute inset-0 bg-black/85 backdrop-blur-md z-50 flex flex-col justify-end">
-      <div className="flex-1" onClick={onClose}></div>
+    <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex flex-col justify-end max-w-[500px] mx-auto">
+      <div className="h-12 shrink-0 cursor-pointer" onClick={onClose}></div>
 
-      <div className="bg-[#171922] border-t border-slate-700/60 rounded-t-[32px] max-h-[90vh] flex flex-col modal-animate-up shadow-2xl overflow-hidden">
+      <div className="bg-[#131620] border-t border-white/10 rounded-t-[36px] flex-1 max-h-[90vh] flex flex-col modal-animate-up shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div className="p-4 border-b border-white/5 flex items-center justify-between shrink-0">
           <div>
             <h3 className="text-base font-extrabold text-white">Tu Pedido Bajonero</h3>
             <p className="text-xs text-slate-400">
@@ -72,8 +72,8 @@ export default function CheckoutModal({
           </button>
         </div>
 
-        {/* Contenido scrolleable */}
-        <div className="p-4 overflow-y-auto space-y-4 no-scrollbar">
+        {/* Contenido scrolleable garantizado */}
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-4 pb-6">
           {/* Lista de productos en carrito */}
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-slate-300">Detalle de platos:</h4>

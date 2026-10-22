@@ -41,17 +41,17 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
   return (
     <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex flex-col justify-end max-w-[500px] mx-auto">
       {/* Backdrop */}
-      <div className="flex-1" onClick={onClose}></div>
+      <div className="h-12 shrink-0" onClick={onClose}></div>
 
       {/* Sheet Container */}
-      <div className="bg-[#131620] border-t border-white/10 rounded-t-[36px] max-h-[88vh] flex flex-col modal-animate-up shadow-2xl overflow-hidden">
+      <div className="bg-[#131620] border-t border-white/10 rounded-t-[36px] flex-1 max-h-[88vh] flex flex-col modal-animate-up shadow-2xl overflow-hidden">
         {/* Header Drag Handle */}
-        <div className="pt-3 pb-1 flex justify-center">
+        <div className="pt-2.5 pb-1 flex justify-center shrink-0">
           <div className="w-12 h-1.5 rounded-full bg-slate-700"></div>
         </div>
 
         {/* Product Image Header with Close Button */}
-        <div className="relative h-48 w-full shrink-0 overflow-hidden">
+        <div className="relative h-40 w-full shrink-0 overflow-hidden">
           <img
             src={product.image}
             alt={product.name}
@@ -66,7 +66,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             <X size={16} />
           </button>
 
-          <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+          <div className="absolute bottom-2.5 left-4 right-4 flex items-end justify-between">
             <span
               className={`text-xs font-black px-3 py-1 rounded-full text-white shadow-lg ${product.badgeColor}`}
             >
@@ -80,8 +80,8 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           </div>
         </div>
 
-        {/* Scrollable Content */}
-        <div className="p-4 overflow-y-auto space-y-4 no-scrollbar">
+        {/* Scrollable Content - Con flex-1 min-h-0 para permitir scroll fluido */}
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-4 pb-6">
           {/* Title, Calories & Price */}
           <div>
             <div className="flex justify-between items-start gap-2">

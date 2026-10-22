@@ -83,8 +83,8 @@ export default function SauceSelector({
         )}
       </div>
 
-      {/* Grid de Salsas con Muestrario de Color Real */}
-      <div className="grid grid-cols-2 gap-2 max-h-44 overflow-y-auto pr-1 no-scrollbar">
+      {/* Grid de Salsas con Muestrario de Color Real (Sin scroll anidado para no bloquear el modal) */}
+      <div className="grid grid-cols-2 gap-2">
         {SAUCES_LIST.map((sauce) => {
           const isSelected = selectedSauces.includes(sauce.id);
           return (
