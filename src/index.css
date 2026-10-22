@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern Design System - Dark Mode Street Food & Bajón Nocturno */
+:root {
+  --bg-primary: #0e1015;
+  --bg-secondary: #171922;
+  --bg-card: #202430;
+  --bg-card-hover: #272c3b;
+  
+  --accent-primary: #ff5722;      /* Naranja fuego / apetito */
+  --accent-primary-hover: #f4511e;
+  --accent-secondary: #ffb300;    /* Amarillo mostaza / queso */
+  --accent-glow: rgba(255, 87, 34, 0.35);
+  --accent-green: #10b981;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(255, 87, 34, 0.5);
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(255, 87, 34, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: #08090c;
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* Hide scrollbar for clean mobile experience */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Simulator container styles */
+/* Pulse animation for hot offers */
+@keyframes flamePulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(255, 87, 34, 0.4)); }
+  50% { transform: scale(1.05); filter: drop-shadow(0 0 10px rgba(255, 179, 0, 0.7)); }
+}
+
+.flame-badge {
+  animation: flamePulse 2.5s infinite ease-in-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-animate-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
