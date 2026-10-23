@@ -2,33 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Modern Design System - Dark Mode Street Food & Bajón Nocturno */
+/* Design System - Rappi / Uber Eats Delivery Standard */
 :root {
-  --bg-primary: #0e1015;
-  --bg-secondary: #171922;
-  --bg-card: #202430;
-  --bg-card-hover: #272c3b;
+  --color-rappi: #ff441f;
+  --color-rappi-hover: #e03412;
+  --color-rappi-light: #fff2ef;
   
-  --accent-primary: #ff5722;      /* Naranja fuego / apetito */
-  --accent-primary-hover: #f4511e;
-  --accent-secondary: #ffb300;    /* Amarillo mostaza / queso */
-  --accent-glow: rgba(255, 87, 34, 0.35);
-  --accent-green: #10b981;
+  --bg-page: #f6f7f9;
+  --bg-surface: #ffffff;
+  --bg-surface-subtle: #f3f4f6;
   
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-main: #18181b;
+  --text-muted: #71717a;
+  --text-subtle: #a1a1aa;
   
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-active: rgba(255, 87, 34, 0.5);
+  --border-light: #e4e4e7;
+  --border-subtle: #f4f4f5;
   
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-full: 9999px;
-  
-  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 20px rgba(255, 87, 34, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -42,9 +35,9 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  background-color: #08090c;
-  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', Roboto, sans-serif;
+  background-color: #f1f2f5;
+  color: #18181b;
   user-select: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -55,7 +48,7 @@ html, body {
   flex-direction: column;
 }
 
-/* Hide scrollbar for clean mobile experience */
+/* Hide scrollbar for native app feel */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -64,22 +57,17 @@ html, body {
   scrollbar-width: none;
 }
 
-/* Simulator container styles */
-/* Pulse animation for hot offers */
-@keyframes flamePulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(255, 87, 34, 0.4)); }
-  50% { transform: scale(1.05); filter: drop-shadow(0 0 10px rgba(255, 179, 0, 0.7)); }
-}
-
-.flame-badge {
-  animation: flamePulse 2.5s infinite ease-in-out;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes slideUpModal {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .modal-animate-up {
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

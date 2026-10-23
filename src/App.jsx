@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MENU_PRODUCTS, VOUCHERS, STORE_INFO } from './data/menuData';
+import { MENU_PRODUCTS, MENU_CATEGORIES, STORE_INFO } from './data/menuData';
 import StoreHero from './components/StoreHero';
 import VouchersSection from './components/VouchersSection';
 import HeaderNav from './components/HeaderNav';
@@ -9,183 +9,122 @@ import CheckoutModal from './components/CheckoutModal';
 import LiveOrderTracker from './components/LiveOrderTracker';
 import ProfileScreen from './components/ProfileScreen';
 import BottomNav from './components/BottomNav';
-import { Flame, Sparkles, ArrowRight, ShoppingBag, Heart, Bike, CheckCircle2 } from 'lucide-react';
+import { ShoppingBag, ArrowRight, Search } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('menu');
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [orderType, setOrderType] = useState('delivery'); // 'delivery' | 'pickup' | 'dine_in'
+  const [orderType, setOrderType] = useState('delivery'); // 'delivery' | 'pickup'
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [activeOrder, setActiveOrder] = useState(null);
-  const [vouchers, setVouchers] = useState(VOUCHERS);
-  const [favorites, setFavorites] = useState(['salchipapa-monstruosa', 'cuarto-pollo-broaster']);
-  const [toastMessage, setToastMessage] = useState(null);
-
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
-  const toggleFavorite = (productId) => {
-    setFavorites((prev) => {
-      const isFav = prev.includes(productId);
-      const updated = isFav ? prev.filter((id) => id !== productId) : [...prev, productId];
-      showToast(isFav ? 'Eliminado de favoritos' : '❤️ ¡Guardado en tus favoritos!');
-      return updated;
-    });
-  };
-
-  const handleClaimVoucher = (voucherId) => {
-    setVouchers((prev) =>
-      prev.map((v) => (v.id === voucherId ? { ...v, claimed: true } : v))
-    );
-    showToast('🎟️ ¡Cupón activado para tu próximo pedido!');
-  };
 
   const handleAddToCart = (item) => {
     setCart((prev) => [...prev, item]);
-    showToast(`🍟 ¡${item.product.name} agregado al carrito!`);
   };
 
   const handleOrderSuccess = (orderData) => {
     setActiveOrder(orderData);
     setActiveTab('tracking');
-    showToast('🔥 ¡Pedido enviado a la plancha con éxito!');
   };
 
-  // Filtrado de productos para la pestaña Menú
+  // Filtrado de productos
   const filteredProducts = MENU_PRODUCTS.filter((prod) => {
     const matchesCategory =
       activeCategory === 'all' || prod.category === activeCategory;
     const matchesSearch =
       prod.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      prod.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      prod.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+      prod.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
-  // Platos favoritos
-  const favoriteProducts = MENU_PRODUCTS.filter((prod) =>
-    favorites.includes(prod.id)
-  );
 
   const cartTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="w-full h-full max-w-[500px] mx-auto bg-[#0b0d12] text-white flex flex-col font-sans select-none relative shadow-2xl overflow-hidden">
-      {/* Toast Flotante Superior */}
-      {toastMessage && (
-        <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 bg-[#1a1e2c]/95 border border-amber-500/40 text-amber-300 text-xs font-black px-4 py-2 rounded-2xl shadow-2xl backdrop-blur-xl flex items-center gap-2 animate-bounce">
-          <Sparkles size={14} className="text-amber-400" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
-
-      {/* Contenido Principal con Scroll Fluido Garantizado */}
-      <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-36">
+    <div className="w-full h-full max-w-[500px] mx-auto bg-white text-gray-900 flex flex-col font-sans select-none relative shadow-xl overflow-hidden">
+      {/* Contenido Principal con Scroll Fluido */}
+      <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-28">
         {activeTab === 'menu' && (
-          <div className="space-y-4">
-            {/* Cabecera de la Marca y Ubicación */}
+          <div className="bg-[#f6f7f9] space-y-2">
+            {/* Cabecera de Restaurante (Estilo Rappi) */}
             <StoreHero
               orderType={orderType}
               onOrderTypeChange={setOrderType}
-              onOpenAddressModal={() => showToast('📍 Dirección fijada: Av. Las Palmeras 450')}
+              onSearchClick={() => setActiveTab('search')}
             />
 
-            <div className="px-4 space-y-4">
-              {/* Sección de Cupones Reclamables */}
-              <VouchersSection
-                vouchers={vouchers}
-                onClaimVoucher={handleClaimVoucher}
-              />
-            </div>
+            {/* Banners Promocionales */}
+            <VouchersSection />
 
-            {/* Sticky Header con Búsqueda y Categorías */}
+            {/* Sticky Category Bar */}
             <HeaderNav
               activeCategory={activeCategory}
               onSelectCategory={setActiveCategory}
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              cartCount={cartCount}
-              onOpenCart={() => setIsCheckoutOpen(true)}
             />
 
-            {/* Catálogo de Platos en Cuadrícula 2 Columnas (Estilo McDonald's & Roky's) */}
-            <div className="px-4 space-y-3">
-              <div className="flex justify-between items-center px-1">
-                <div>
-                  <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-1.5">
-                    <Flame size={16} className="text-orange-500" />
-                    Para Ti • Plancha Caliente
-                  </h3>
-                  <p className="text-[10px] text-slate-400">
-                    {filteredProducts.length} platos listos para salir
-                  </p>
-                </div>
-                <span className="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/20">
-                  🔥 Cremas ilimitadas
+            {/* Lista de Platos en Formato Horizontal Estándar de Rappi */}
+            <div className="bg-white">
+              <div className="px-4 pt-3 pb-1 border-b border-gray-100 flex items-center justify-between">
+                <h3 className="text-sm font-extrabold text-gray-900 uppercase tracking-wider">
+                  {activeCategory === 'all' ? 'Platos Destacados' : activeCategory}
+                </h3>
+                <span className="text-xs text-gray-400">
+                  {filteredProducts.length} opciones
                 </span>
               </div>
 
-              {/* Grid de 2 Columnas Verticales */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="divide-y divide-gray-100">
                 {filteredProducts.map((product) => (
                   <ProductCard
                     key={product.id}
                     product={product}
                     onSelect={setSelectedProduct}
-                    isFavorite={favorites.includes(product.id)}
-                    onToggleFavorite={toggleFavorite}
                   />
                 ))}
               </div>
 
               {filteredProducts.length === 0 && (
-                <div className="py-12 text-center text-slate-400 text-xs">
-                  No encontramos resultados para "{searchQuery}". Intenta con salchipapa o broaster.
+                <div className="py-16 text-center text-gray-400 text-xs">
+                  No se encontraron platos en esta categoría.
                 </div>
               )}
             </div>
           </div>
         )}
 
-        {/* Pestaña de Combos */}
-        {activeTab === 'combos' && (
-          <div className="p-4 space-y-4">
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-wider bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded-md border border-orange-500/30 inline-block mb-1">
-                Ahorra hasta 30%
-              </span>
-              <h2 className="text-lg font-black text-white">Combos & Promociones 🍟</h2>
-              <p className="text-xs text-slate-400">Nuestras combinaciones más pedidas con bebidas y salsas de la casa</p>
+        {/* Pestaña de Búsqueda */}
+        {activeTab === 'search' && (
+          <div className="p-4 space-y-4 bg-white min-h-full">
+            <div className="relative">
+              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                autoFocus
+                placeholder="Buscar en El Punto Sanguchero..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-gray-100 border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ff441f]"
+              />
             </div>
 
-            <VouchersSection
-              vouchers={vouchers}
-              onClaimVoucher={handleClaimVoucher}
-            />
-
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              {MENU_PRODUCTS.filter((p) => p.popular).map((product) => (
+            <div className="divide-y divide-gray-100">
+              {filteredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}
                   onSelect={setSelectedProduct}
-                  isFavorite={favorites.includes(product.id)}
-                  onToggleFavorite={toggleFavorite}
                 />
               ))}
             </div>
           </div>
         )}
 
-        {/* Pestaña de Seguimiento / Tracking de Pedido */}
+        {/* Pestaña de Seguimiento de Pedidos */}
         {activeTab === 'tracking' && (
-          <div className="h-full flex flex-col">
+          <div className="h-full flex flex-col bg-[#f6f7f9]">
             {activeOrder ? (
               <LiveOrderTracker
                 order={activeOrder}
@@ -195,80 +134,43 @@ export default function App() {
                 }}
               />
             ) : (
-              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center py-24 space-y-3">
-                <div className="w-16 h-16 rounded-3xl bg-[#1a1e2c] text-orange-400 flex items-center justify-center border border-white/10 shadow-xl mb-1">
-                  <Bike size={32} />
+              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center py-28 space-y-3 bg-white">
+                <div className="w-16 h-16 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mb-1">
+                  <ShoppingBag size={28} />
                 </div>
-                <h3 className="text-base font-black text-white">
-                  No tienes pedidos en curso
+                <h3 className="text-base font-bold text-gray-900">
+                  No tienes pedidos activos
                 </h3>
-                <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
-                  ¿Hambre nocturna? Explora el menú y pide tu salchipapa con todas las cremas en vasito o encima.
+                <p className="text-xs text-gray-500 max-w-xs">
+                  Explora nuestra carta y pide los mejores sánguches y salchipapas a domicilio.
                 </p>
                 <button
                   onClick={() => setActiveTab('menu')}
-                  className="bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-black text-xs px-6 py-3 rounded-2xl shadow-xl shadow-orange-600/30 transition mt-2 active:scale-95"
+                  className="bg-[#ff441f] text-white font-bold text-xs px-6 py-2.5 rounded-xl shadow-md transition active:scale-95"
                 >
-                  Ver Menú Callejero
+                  Ver el menú
                 </button>
               </div>
             )}
           </div>
         )}
 
-        {/* Pestaña de Favoritos */}
-        {activeTab === 'favorites' && (
-          <div className="p-4 space-y-4">
-            <div>
-              <h2 className="text-lg font-black text-white">Tus Antojos Favoritos ❤️</h2>
-              <p className="text-xs text-slate-400">Tus platos preferidos para pedir con un solo toque</p>
-            </div>
-
-            {favoriteProducts.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3">
-                {favoriteProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onSelect={setSelectedProduct}
-                    isFavorite={true}
-                    onToggleFavorite={toggleFavorite}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="py-24 text-center space-y-2">
-                <Heart size={40} className="text-slate-600 mx-auto" />
-                <p className="text-xs text-slate-400 font-bold">
-                  Aún no has guardado platos favoritos.
-                </p>
-                <button
-                  onClick={() => setActiveTab('menu')}
-                  className="text-xs text-orange-400 font-black underline mt-1"
-                >
-                  Explorar la plancha
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Pestaña de Perfil */}
+        {/* Pestaña de Cuenta */}
         {activeTab === 'profile' && <ProfileScreen />}
       </main>
 
-      {/* Barra Flotante de Carrito (Sticky sobre la barra de navegación) */}
+      {/* Canasta Flotante Estilo Rappi (Aparece sobre el bottom nav) */}
       {cartCount > 0 && (
-        <div className="fixed bottom-16 left-0 right-0 max-w-[500px] mx-auto px-4 py-1.5 z-30">
+        <div className="fixed bottom-14 left-0 right-0 max-w-[500px] mx-auto px-4 py-2 z-30">
           <button
             onClick={() => setIsCheckoutOpen(true)}
-            className="w-full bg-gradient-to-r from-orange-600 via-amber-500 to-orange-500 text-white font-black py-3.5 px-4 rounded-2xl flex items-center justify-between shadow-2xl shadow-orange-600/50 active:scale-[0.99] transition border border-amber-400/30"
+            className="w-full bg-[#ff441f] hover:bg-[#e03412] text-white font-bold py-3.5 px-4 rounded-2xl flex items-center justify-between shadow-xl shadow-[#ff441f]/25 active:scale-[0.99] transition"
           >
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-lg bg-black/30 text-white text-xs flex items-center justify-center font-black">
+              <span className="w-6 h-6 rounded-lg bg-black/20 text-white text-xs flex items-center justify-center font-extrabold">
                 {cartCount}
               </span>
-              <span className="text-xs tracking-wide">Ver Pedido / Pagar</span>
+              <span className="text-xs font-bold">Ver canasta</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-black">S/ {cartTotal.toFixed(2)}</span>
@@ -278,11 +180,10 @@ export default function App() {
         </div>
       )}
 
-      {/* Barra de Navegación Inferior Móvil */}
+      {/* Barra de Navegación Inferior (Tabs oficiales) */}
       <BottomNav
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        cartCount={cartCount}
         hasActiveOrder={!!activeOrder}
       />
 
@@ -295,7 +196,7 @@ export default function App() {
         />
       )}
 
-      {/* Modal de Checkout / Pago */}
+      {/* Modal de Checkout / Canasta */}
       {isCheckoutOpen && (
         <CheckoutModal
           cart={cart}

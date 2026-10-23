@@ -1,6 +1,6 @@
 import React from 'react';
 import { SAUCES_LIST } from '../data/menuData';
-import { Check, Flame, ShieldAlert, Sparkles } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 export default function SauceSelector({
   selectedSauces,
@@ -12,140 +12,122 @@ export default function SauceSelector({
     if (selectedSauces.includes(sauceId)) {
       onChange(selectedSauces.filter((id) => id !== sauceId));
     } else {
-      onChange([...selectedSauces, sauceId]);
+      if (selectedSauces.length < 5) {
+        onChange([...selectedSauces, sauceId]);
+      }
     }
   };
 
-  const selectAll = () => {
-    onChange(SAUCES_LIST.map((s) => s.id));
-  };
-
-  const selectNoSpicy = () => {
-    onChange(SAUCES_LIST.filter((s) => !s.spicy).map((s) => s.id));
-  };
-
-  const selectClassicThree = () => {
-    onChange(['mayo', 'aji_pollero', 'tartara']);
-  };
-
-  const clearAll = () => {
-    onChange([]);
-  };
-
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <div>
-          <h4 className="text-sm font-black text-white flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block animate-pulse"></span>
-            Barra de Cremas Artesanales
-          </h4>
-          <p className="text-[11px] text-slate-400">
-            Escoge todas las que desees (¡Sin costo adicional!)
-          </p>
+    <div className="space-y-5">
+      {/* Sección 1: Selección de cremas */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h4 className="text-sm font-bold text-gray-900">
+              Elige tus cremas artesanales
+            </h4>
+            <p className="text-xs text-gray-500">
+              Elige hasta 5 opciones • Sin costo
+            </p>
+          </div>
+          <span className="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+            {selectedSauces.length}/5
+          </span>
         </div>
-        <span className="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
-          {selectedSauces.length} de {SAUCES_LIST.length}
-        </span>
+
+        <div className="space-y-1 divide-y divide-gray-100">
+          {SAUCES_LIST.map((sauce) => {
+            const isSelected = selectedSauces.includes(sauce.id);
+            return (
+              <button
+                key={sauce.id}
+                type="button"
+                onClick={() => toggleSauce(sauce.id)}
+                className="w-full flex items-center justify-between py-2.5 text-left text-xs transition hover:bg-gray-50 px-1 rounded-lg"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="w-3 h-3 rounded-full border border-gray-300 shrink-0"
+                    style={{ backgroundColor: sauce.hex }}
+                  ></span>
+                  <span className={`font-medium ${isSelected ? 'text-gray-900 font-bold' : 'text-gray-700'}`}>
+                    {sauce.name}
+                  </span>
+                </div>
+
+                <div
+                  className={`w-5 h-5 rounded-md flex items-center justify-center border transition ${
+                    isSelected
+                      ? 'bg-[#ff441f] border-[#ff441f] text-white'
+                      : 'border-gray-300 bg-white'
+                  }`}
+                >
+                  {isSelected && <Check size={13} strokeWidth={3} />}
+                </div>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Botones de Presets Rápidos */}
-      <div className="flex flex-wrap gap-1.5">
-        <button
-          type="button"
-          onClick={selectAll}
-          className="text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-400/40 hover:bg-amber-500/30 transition flex items-center gap-1"
-        >
-          <Sparkles size={11} /> ¡Todas las cremas!
-        </button>
-        <button
-          type="button"
-          onClick={selectClassicThree}
-          className="text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-800 text-orange-300 border border-orange-500/30 hover:bg-orange-500/20 transition flex items-center gap-1"
-        >
-          Mayo + Ají + Tártara
-        </button>
-        <button
-          type="button"
-          onClick={selectNoSpicy}
-          className="text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-800 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/20 transition flex items-center gap-1"
-        >
-          <ShieldAlert size={11} /> Sin picante
-        </button>
-        {selectedSauces.length > 0 && (
-          <button
-            type="button"
-            onClick={clearAll}
-            className="text-[10px] font-bold px-2 py-1 rounded-full bg-slate-800 text-slate-400 hover:text-red-400 transition"
+      {/* Sección 2: Modo de servicio de las cremas */}
+      <div className="pt-3 border-t border-gray-200">
+        <h4 className="text-sm font-bold text-gray-900 mb-0.5">
+          ¿Cómo deseas tus cremas?
+        </h4>
+        <p className="text-xs text-gray-500 mb-2.5">
+          Selecciona una opción
+        </p>
+
+        <div className="space-y-2">
+          <label
+            onClick={() => onModeChange('on_top')}
+            className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition ${
+              sauceDeliveryMode === 'on_top'
+                ? 'border-[#ff441f] bg-[#fff2ef]'
+                : 'border-gray-200 bg-white hover:bg-gray-50'
+            }`}
           >
-            Limpiar
-          </button>
-        )}
-      </div>
-
-      {/* Grid de Salsas con Muestrario de Color Real (Sin scroll anidado para no bloquear el modal) */}
-      <div className="grid grid-cols-2 gap-2">
-        {SAUCES_LIST.map((sauce) => {
-          const isSelected = selectedSauces.includes(sauce.id);
-          return (
-            <button
-              key={sauce.id}
-              type="button"
-              onClick={() => toggleSauce(sauce.id)}
-              className={`flex items-center justify-between p-2.5 rounded-2xl text-left text-xs font-bold border transition-all ${
-                isSelected
-                  ? 'bg-orange-500/20 border-orange-500 text-white shadow-md shadow-orange-500/20 scale-[1.01]'
-                  : 'bg-[#12141e] border-white/5 text-slate-300 hover:border-white/20'
+            <span className="text-xs font-bold text-gray-800">
+              Bañadas encima del plato
+            </span>
+            <div
+              className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                sauceDeliveryMode === 'on_top'
+                  ? 'border-[#ff441f]'
+                  : 'border-gray-300'
               }`}
             >
-              <div className="flex items-center gap-2 truncate pr-1">
-                <span
-                  className="w-3 h-3 rounded-full border border-black/40 shadow-sm shrink-0"
-                  style={{ backgroundColor: sauce.hex }}
-                ></span>
-                <span className="truncate">{sauce.name}</span>
-              </div>
+              {sauceDeliveryMode === 'on_top' && (
+                <div className="w-2 h-2 rounded-full bg-[#ff441f]"></div>
+              )}
+            </div>
+          </label>
 
-              <div
-                className={`w-4 h-4 rounded-md flex items-center justify-center shrink-0 transition ${
-                  isSelected ? 'bg-orange-500 text-white' : 'border border-slate-700'
-                }`}
-              >
-                {isSelected && <Check size={11} strokeWidth={3.5} />}
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Modo de Servir las Salsas */}
-      <div className="pt-2 border-t border-white/5">
-        <label className="text-xs font-bold text-slate-400 block mb-1.5">
-          ¿Cómo deseas que te sirvan las cremas?
-        </label>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={() => onModeChange('on_top')}
-            className={`py-2 px-2 rounded-xl text-xs font-extrabold border transition ${
-              sauceDeliveryMode === 'on_top'
-                ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                : 'bg-[#12141e] border-white/5 text-slate-400'
-            }`}
-          >
-            🔥 Bañadas encima
-          </button>
-          <button
-            type="button"
+          <label
             onClick={() => onModeChange('separated')}
-            className={`py-2 px-2 rounded-xl text-xs font-extrabold border transition ${
+            className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition ${
               sauceDeliveryMode === 'separated'
-                ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                : 'bg-[#12141e] border-white/5 text-slate-400'
+                ? 'border-[#ff441f] bg-[#fff2ef]'
+                : 'border-gray-200 bg-white hover:bg-gray-50'
             }`}
           >
-            🥣 Aparte en vasitos
-          </button>
+            <span className="text-xs font-bold text-gray-800">
+              Aparte en vasitos individuales
+            </span>
+            <div
+              className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                sauceDeliveryMode === 'separated'
+                  ? 'border-[#ff441f]'
+                  : 'border-gray-300'
+              }`}
+            >
+              {sauceDeliveryMode === 'separated' && (
+                <div className="w-2 h-2 rounded-full bg-[#ff441f]"></div>
+              )}
+            </div>
+          </label>
         </div>
       </div>
     </div>
