@@ -1,101 +1,101 @@
-# 🍔 El Punto Sanguchero — Mobile Food Delivery & Ordering App
+# El Punto Sanguchero - Mobile Food Delivery & Ordering Application
 
 [![React](https://img.shields.io/badge/React-18.3.1-blue.svg?logo=react)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.2.0-646CFF.svg?logo=vite)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.17-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Aplicación móvil de alta gama orientada al sector **Quick Service Restaurant (QSR)**, food trucks y sangucherías urbanas. Desarrollada con un diseño moderno optimizado para dispositivos móviles, inspirada en las mejores prácticas de plataformas líderes de delivery como **Roky's**, **Bembos**, **Enatega** y **McDonald's App**.
+Aplicacion movil para el sector Quick Service Restaurant (QSR), sangucherias y comida rapida urbana. Disenada bajo una arquitectura orientada a componentes, interfaces fluidas con recarga en caliente y flujos de pedidos completos desde catalogo hasta seguimiento en tiempo real.
 
 ---
 
-## 📸 Características Principales
+## Caracteristicas del Sistema
 
-### 1. 🏪 Cabecera de Marca (Store Hero)
-- **Selector de Ubicación Dinámico:** Permite alternar la dirección de entrega en tiempo real (*ej. Av. Las Palmeras 450*).
-- **Branding & Calificaciones:** Portada con fotografía gastronómica en alta definición, logotipo oficial, estado de atención en tiempo real (*6:00 PM a 4:00 AM*) y calificación de clientes (*⭐ 4.9 con más de 2,400 reseñas*).
-- **Modalidades de Pedido Integradas:**
-  - 🛵 **Delivery Express** (con tiempo estimado de 20-30 min).
-  - 🥡 **Al Paso / Para Llevar** (recojo rápido sin cola en 10-12 min).
-  - 🪑 **Consumo en Barra** (servicio directo en local o barra).
+### 1. Cabecera Comercial y Geolocalizacion (Store Hero)
+- Selector de direccion de entrega en tiempo real con persistencia de zona.
+- Perfil del establecimiento con valoraciones verificadas (4.9 / 2.4k resenas), estado de atencion y tiempos estimados.
+- Selector de modalidades de servicio:
+  - Delivery Express (20 a 30 minutos).
+  - Recojo al Paso / Curbside Pickup (10 a 12 minutos sin cola).
+  - Atencion en Mesa o Barra.
 
-### 2. 🎟️ Cuponera Digital Interactiva (Vouchers)
-- Carrusel horizontal con cupones canjeables con un toque:
-  - `PUNTODELIVERY` — Delivery Gratis en órdenes superiores a S/ 25.00.
-  - `CHICHAFREE` — Vaso de chicha morada artesanal de 500ml de regalo.
-  - `BIENVENIDO` — S/ 5.00 OFF en la primera compra.
-- Notificaciones Toast en pantalla al reclamar y aplicación automática en el checkout.
+### 2. Cuponera Digital y Promociones
+- Modulo horizontal de cupones canjeables con validacion dinamica:
+  - PUNTODELIVERY: Envio sin costo en ordenes superiores al monto base.
+  - CHICHAFREE: Bebida artesanal incluida con combos de la carta.
+  - BIENVENIDO: Descuento directo en la primera orden del usuario.
+- Notificaciones en pantalla y aplicacion automatica en el resumen de compra.
 
-### 3. 🍟 Catálogo en Cuadrícula de Doble Columna
-- Formato vertical de 2 columnas estilo nativo (inspirado en la interfaz de McDonald's).
-- Fotografía en alta resolución, conteo de calorías (*kcal*), tiempo estimado de preparación y etiquetas de categoría (*👑 El Rey*, *⚡ Sale al Toque*, *🍗 Top Ventas*).
-- Botón circular interactivo `+` con micro-animaciones para personalización inmediata.
+### 3. Catalogo de Productos en Cuadricula Vertical
+- Visualizacion en dos columnas con fotografia gastronómica de alta resolucion.
+- Metricas por producto: indicador calorico (kcal), tiempo de coccion y etiquetas de demanda.
+- Accion rapida para personalizacion y adicion al pedido.
 
-### 4. 🥣 Módulo Especializado: Barra de Salsas y Adicionales
-- **Selector cromático de cremas peruanas:** Mayonesa casera, Ají pollero cremoso, Tártara de la casa, Crema de aceituna botija, Salsa golf, Rocoto parrillero y Chimichurri.
-- **Acciones rápidas en un toque:** `¡Todas las cremas!` | `Sin picante` | `Mayo + Ají + Tártara`.
-- **Selector de servicio:** Opción de servir las cremas *bañadas encima* o *en vasitos separados*.
-- **Adicionales de plancha (Upselling):** Huevo frito montado, queso Edam fundido, tocino crocante ahumado, plátano frito y papas al hilo con actualización de subtotal en tiempo real.
+### 4. Modulo Especializado de Salsas y Guarniciones
+- Selector cromatico para salsas y cremas criollas (mayonesa casera, aji pollero, tartara, crema de aceituna, salsa golf, rocoto parrillero y chimichurri).
+- Filtros de seleccion rapida: Todas las cremas, Sin picante y Seleccion clasica.
+- Opciones de despacho: Bañadas sobre el producto o en vasitos individuales separados.
+- Guarniciones y adicionales de plancha (huevo montado, queso edam fundido, tocino crujiente, platano frito) con recalculacion de precio en tiempo real.
 
-### 5. 💳 Pasarela de Checkout y Métodos de Pago Locales
-- **Efectivo contra entrega con cálculo dinámico de vuelto:** El cliente ingresa con cuánto dinero va a pagar y el sistema calcula automáticamente el cambio exacto que debe llevar el repartidor.
-- **Billeteras Digitales (Yape / Plin):** Código QR interactivo y datos de transferencia instantánea.
-- **Tarjetas de Débito y Crédito.**
-- Animación de confeti al confirmar el pedido y redirección al seguimiento.
+### 5. Pasarela de Pago y Liquidacion de Efectivo
+- Modulo de pago en efectivo con calculadora de cambio (calcula el vuelto exacto que requiere el repartidor).
+- Integracion visual de billeteras digitales (Yape / Plin) con codigo QR.
+- Soporte para pagos con tarjeta de debito y credito.
+- Desglose detallado de subtotales, recargo de delivery y descuentos aplicados.
 
-### 6. 🛵 Seguimiento del Pedido en Tiempo Real (Live Order Tracker)
-- Línea de tiempo dinámica con 4 etapas de preparación:
-  1. `Orden Recibida en Comanda 📝`
-  2. `En la Plancha y Freidora 🔥`
-  3. `Empacando con tus Cremas 🍟`
-  4. `En Moto hacia tu dirección / Listo para recoger 🛵`
-- Botones de contacto directo para llamada telefónica y chat de WhatsApp con el restaurante.
+### 6. Seguimiento de Ordenes en Vivo (Live Order Tracker)
+- Timeline interactivo con cuatro etapas de preparacion:
+  1. Orden confirmada en comanda.
+  2. Preparacion en plancha y freidora.
+  3. Empaque y adicion de salsas.
+  4. Despacho en ruta con motorizado o listo para recojo en mostrador.
+- Canales directos de soporte mediante llamada telefonica y enlace a WhatsApp.
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Especificaciones Tecnicas
 
-| Capa | Tecnología |
+| Componente | Tecnologia |
 | :--- | :--- |
-| **Framework Base** | [React 18](https://reactjs.org/) + [Vite 6](https://vitejs.dev/) |
-| **Estilos & Diseño** | [Tailwind CSS 3.4](https://tailwindcss.com/) + CSS Variables |
-| **Iconografía** | [Lucide React](https://lucide.dev/) |
-| **Efectos Visuales** | [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti) |
-| **Tipografía** | Plus Jakarta Sans & Outfit (Google Fonts) |
-| **Arquitectura de UI** | Mobile-First / Component-Driven Architecture |
+| Entorno y Libreria Base | React 18.3.1 + Vite 6.2.0 |
+| Motor de Estilos | Tailwind CSS 3.4.17 + PostCSS |
+| Libreria de Iconos | Lucide React |
+| Animaciones | Canvas Confetti |
+| Tipografia | Plus Jakarta Sans & Outfit |
+| Arquitectura de Interfaz | Mobile-First Responsive Shell |
 
 ---
 
-## 📂 Estructura del Proyecto
+## Estructura del Repositorio
 
 ```text
 ├── src/
 │   ├── components/
-│   │   ├── BottomNav.jsx          # Barra inferior de navegación móvil
-│   │   ├── CheckoutModal.jsx      # Modal de pago, Yape/Plin y cálculo de vuelto
-│   │   ├── HeaderNav.jsx          # Buscador en tiempo real y selector de categorías
-│   │   ├── HeroSlider.jsx         # Carrusel de promociones y combos
-│   │   ├── LiveOrderTracker.jsx   # Seguimiento del estado del pedido en vivo
-│   │   ├── ProductCard.jsx        # Tarjeta vertical de producto (cuadrícula 2 columnas)
-│   │   ├── ProductModal.jsx       # Modal de personalización de ingredientes y salsas
-│   │   ├── ProfileScreen.jsx      # Pantalla de perfil de usuario y direcciones
-│   │   ├── SauceSelector.jsx      # Selector cromático de cremas y modo de entrega
-│   │   ├── StoreHero.jsx          # Cabecera principal, logo y selector de modalidad
-│   │   └── VouchersSection.jsx    # Cuponera digital con cupones canjeables
+│   │   ├── BottomNav.jsx          # Barra de navegacion inferior con tabs
+│   │   ├── CheckoutModal.jsx      # Modal de liquidacion y metodos de pago
+│   │   ├── HeaderNav.jsx          # Buscador y filtros de categorias
+│   │   ├── HeroSlider.jsx         # Carrusel de promociones destacadas
+│   │   ├── LiveOrderTracker.jsx   # Seguimiento del pedido en tiempo real
+│   │   ├── ProductCard.jsx        # Tarjeta vertical en cuadricula
+│   │   ├── ProductModal.jsx       # Personalizador de salsas y adicionales
+│   │   ├── ProfileScreen.jsx      # Perfil de usuario y direcciones guardadas
+│   │   ├── SauceSelector.jsx      # Selector de salsas y modo de despacho
+│   │   ├── StoreHero.jsx          # Informacion del local y tipo de entrega
+│   │   └── VouchersSection.jsx    # Cuponera de descuentos activos
 │   ├── data/
-│   │   └── menuData.js            # Catálogo de productos, salsas, cupones y datos del local
-│   ├── App.jsx                    # Orquestador principal de estado y vistas
-│   ├── index.css                  # Design tokens, animaciones y reset móvil
-│   └── main.jsx                   # Punto de entrada de la aplicación
-├── index.html                     # Plantilla HTML con viewport móvil
-├── package.json                   # Dependencias y scripts
-├── tailwind.config.js             # Configuración de Tailwind CSS
-└── vite.config.js                 # Configuración de compilador Vite
+│   │   └── menuData.js            # Modelos de datos del menu, precios y cupones
+│   ├── App.jsx                    # Contenedor principal y gestion de estado
+│   ├── index.css                  # Definicion de variables y estilos base
+│   └── main.jsx                   # Punto de entrada de la aplicacion
+├── index.html                     # Documento HTML con viewport optimizado
+├── package.json                   # Dependencias y scripts de ejecucion
+├── tailwind.config.js             # Configuracion de tokens de Tailwind
+└── vite.config.js                 # Configuracion del servidor Vite
 ```
 
 ---
 
-## 🚀 Inicio Rápido (Desarrollo Local)
+## Guia de Instalacion y Ejecucion Local
 
 ### 1. Clonar el repositorio
 ```bash
@@ -108,30 +108,30 @@ cd cobblemania-resourcepack2
 npm install
 ```
 
-### 3. Iniciar el servidor de desarrollo
+### 3. Iniciar el entorno de desarrollo
 ```bash
 npm run dev
 ```
 
-La aplicación estará disponible de inmediato en:
-👉 **`http://localhost:5180/`**
+El servidor local estara disponible en:
+http://localhost:5180/
 
-### 4. Compilación para producción
+### 4. Compilacion para despliegue en produccion
 ```bash
 npm run build
 ```
 
 ---
 
-## 📱 Visualización Recomendada
+## Entorno de Visualizacion Recomendado
 
-Para una experiencia óptima de desarrollo idéntica a un dispositivo móvil:
-1. Abre **[Responsively App](https://responsively.app/)** o las herramientas de desarrollador de tu navegador (`F12` ➔ `Ctrl + Shift + M`).
-2. Selecciona el perfil de **iPhone 12/13/14 Pro** o **Samsung Galaxy**.
-3. Ingresa la URL local `http://localhost:5180/`.
+Para emular la pantalla de un smartphone durante el desarrollo:
+1. Utilizar Responsively App o activar las herramientas de desarrollador del navegador (F12, luego Ctrl + Shift + M).
+2. Seleccionar resoluciones estandar (como iPhone 12/13/14 Pro a 390x844 px o dispositivos Android similares).
+3. Ingresar a la direccion local http://localhost:5180/.
 
 ---
 
-## 📄 Licencia
+## Licencia
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más información.
+Este proyecto se distribuye bajo la Licencia MIT. Consulta el archivo LICENSE para mas detalles.
