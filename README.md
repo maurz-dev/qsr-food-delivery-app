@@ -99,8 +99,8 @@ Aplicacion movil para el sector Quick Service Restaurant (QSR), sangucherias y c
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/maurz-dev/cobblemania-resourcepack2.git
-cd cobblemania-resourcepack2
+git clone https://github.com/maurz-dev/qsr-food-delivery-app.git
+cd qsr-food-delivery-app
 ```
 
 ### 2. Instalar dependencias
