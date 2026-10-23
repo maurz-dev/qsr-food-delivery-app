@@ -1,6 +1,6 @@
 export const STORE_INFO = {
-  name: 'El Bajón Sanguchero',
-  tagline: 'Sánguches & Broastería al Paso',
+  name: 'El Punto Sanguchero',
+  tagline: 'Sánguches, Salchipapas & Broaster Artesanal',
   address: 'Av. Antúnez de Mayolo 420 - Los Olivos',
   rating: 4.9,
   reviewsCount: '2.4k',
@@ -15,7 +15,7 @@ export const STORE_INFO = {
 export const VOUCHERS = [
   {
     id: 'envio-gratis',
-    code: 'BAJONGRATIS',
+    code: 'PUNTODELIVERY',
     title: 'Delivery Gratis',
     desc: 'En pedidos mayores a S/ 25',
     claimed: true,
@@ -23,7 +23,7 @@ export const VOUCHERS = [
   },
   {
     id: 'chicha-gratis',
-    code: 'CHICHA2026',
+    code: 'CHICHAFREE',
     title: 'Vaso Chicha 500ml Free',
     desc: 'Por la compra de cualquier Combo',
     claimed: false,
@@ -31,9 +31,9 @@ export const VOUCHERS = [
   },
   {
     id: 'descuento-10',
-    code: 'DESCUENTO10',
+    code: 'BIENVENIDO',
     title: 'S/ 5.00 OFF',
-    desc: 'Válido para la segunda orden',
+    desc: 'Válido para tu primera orden',
     claimed: false,
     tag: 'Nuevo'
   }

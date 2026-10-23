@@ -1,5 +1,6 @@
 {
-  "name": "sangucheria-bajon-app",
+  "name": "el-punto-sanguchero-app",
+  "description": "Aplicación móvil para sanguchería y restaurante de comida rápida urbana",
   "private": true,
   "version": "1.0.0",
   "type": "module",

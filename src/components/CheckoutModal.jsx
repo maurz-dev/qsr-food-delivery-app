@@ -225,7 +225,7 @@ export default function CheckoutModal({
                 </div>
                 <div>
                   <span className="text-xs font-bold text-purple-200 block">Yapea al 987-654-321</span>
-                  <span className="text-[10px] text-slate-400">Titular: El Bajón Sanguchero E.I.R.L.</span>
+                  <span className="text-[10px] text-slate-400">Titular: El Punto Sanguchero S.A.C.</span>
                 </div>
               </div>
             )}
@@ -245,7 +245,7 @@ export default function CheckoutModal({
             )}
             {discount > 0 && (
               <div className="flex justify-between text-emerald-400 font-bold">
-                <span>Cupón Bajonero Nocturno</span>
+                <span>Cupón de Descuento Especial</span>
                 <span>- S/ {discount.toFixed(2)}</span>
               </div>
             )}

@@ -58,7 +58,7 @@ export default function StoreHero({ orderType, onOrderTypeChange, onOpenAddressM
                 className="w-full h-full object-cover"
               />
               <span className="absolute bottom-0 inset-x-0 bg-orange-600 text-[8px] font-black text-center text-white py-0.5">
-                BAJÓN
+                PUNTO
               </span>
             </div>
 

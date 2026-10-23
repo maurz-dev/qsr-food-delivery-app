@@ -160,8 +160,8 @@ export default function App() {
               <span className="text-[10px] font-black uppercase tracking-wider bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded-md border border-orange-500/30 inline-block mb-1">
                 Ahorra hasta 30%
               </span>
-              <h2 className="text-lg font-black text-white">Combos Bajoneros 🍟</h2>
-              <p className="text-xs text-slate-400">Platos grandes con cremas dobles y bebidas heladas</p>
+              <h2 className="text-lg font-black text-white">Combos & Promociones 🍟</h2>
+              <p className="text-xs text-slate-400">Nuestras combinaciones más pedidas con bebidas y salsas de la casa</p>
             </div>
 
             <VouchersSection
